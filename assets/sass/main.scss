@@ -34,6 +34,7 @@
 		@include color-icon($p);
 		@include color-list($p);
 		@include color-section($p);
+		@include color-gallery($p);
 		@include color-table($p);
 		@include color-spotlight($p);
 	}
@@ -60,6 +61,7 @@
 	@import 'components/features';
 	@import 'components/statistics';
 	@import 'components/spotlight';
+	@import 'components/gallery';
 
 // Layout.
 
