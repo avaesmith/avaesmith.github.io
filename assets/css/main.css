@@ -97,6 +97,44 @@ input, select, textarea {
 	*, *:before, *:after {
 		box-sizing: inherit;
 	}
+/* 
+	body {
+		background: linear-gradient(3deg, 
+		#e37682 0%, 
+		#e07385 5%, 
+		#dd6f88 10%, 
+		#da6c8c 15%, 
+		#d7688f 20%, 
+		#d36493 25%, 
+		#d06196 30%, 
+		#cc5d9a 35%, 
+		#c9599d 40%, 
+		#c655a1 45%, 
+		#c351a4 50%, 
+		#bf4da8 55%, 
+		#bc49ab 60%, 
+		#b946af 65%, 
+		#b642b2 70%, 
+		#b33eb6 75%, 
+		#af3bb9 80%, 
+		#ac37bd 85%, 
+		#a933c0 90%, 
+		#5f4d93 95%);
+		background-size: 10000% 100%;
+		animation: gradient 60s infinite;
+	}
+
+	@keyframes gradient {
+		0% {
+			background-position: 0% 100%;
+		}
+		50% {
+			background-position: 100% 0%;
+		}
+		100% {
+			background-position: 0% 100%;
+		}
+	} */
 
 	body {
 		background-color: #935d8c;
