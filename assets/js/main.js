@@ -1,197 +1,418 @@
-/*
-	Stellar by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+/**
+* Template Name: SnapFolio
+* Template URL: https://bootstrapmade.com/snapfolio-bootstrap-portfolio-template/
+* Updated: Jul 21 2025 with Bootstrap v5.3.7
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
 */
 
-(function($) {
+(function() {
+  "use strict";
 
-	var	$window = $(window),
-		$body = $('body'),
-		$main = $('#main');
+  /**
+   * Header toggle
+   */
+  const headerToggleBtn = document.querySelector('.header-toggle');
 
-	// Breakpoints.
-		breakpoints({
-			xlarge:   [ '1281px',  '1680px' ],
-			large:    [ '981px',   '1280px' ],
-			medium:   [ '737px',   '980px'  ],
-			small:    [ '481px',   '736px'  ],
-			xsmall:   [ '361px',   '480px'  ],
-			xxsmall:  [ null,      '360px'  ]
-		});
+  function headerToggle() {
+    document.querySelector('#header').classList.toggle('header-show');
+    headerToggleBtn.classList.toggle('bi-list');
+    headerToggleBtn.classList.toggle('bi-x');
+  }
+  headerToggleBtn.addEventListener('click', headerToggle);
 
-	// Play initial animations on page load.
-		$window.on('load', function() {
-			window.setTimeout(function() {
-				$body.removeClass('is-preload');
-			}, 100);
-		});
+  /**
+   * Hide mobile nav on same-page/hash links
+   */
+  document.querySelectorAll('#navmenu a').forEach(navmenu => {
+    navmenu.addEventListener('click', () => {
+      if (document.querySelector('.header-show')) {
+        headerToggle();
+      }
+    });
 
-	// Gallery.
-		$('.gallery')
-			.wrapInner('<div class="inner"></div>')
-			.prepend(browser.mobile ? '' : '<div class="forward"></div><div class="backward"></div>')
-			.scrollex({
-				top:		'30vh',
-				bottom:		'30vh',
-				delay:		50,
-				initialize:	function() {
-					$(this).addClass('is-inactive');
-				},
-				terminate:	function() {
-					$(this).removeClass('is-inactive');
-				},
-				enter:		function() {
-					$(this).removeClass('is-inactive');
-				},
-				leave:		function() {
+  });
 
-					var $this = $(this);
+  /**
+   * Toggle mobile nav dropdowns
+   */
+  document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
+    navmenu.addEventListener('click', function(e) {
+      e.preventDefault();
+      this.parentNode.classList.toggle('active');
+      this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+      e.stopImmediatePropagation();
+    });
+  });
 
-					if ($this.hasClass('onscroll-bidirectional'))
-						$this.addClass('is-inactive');
+  /**
+   * Preloader
+   */
+  const preloader = document.querySelector('#preloader');
+  if (preloader) {
+    window.addEventListener('load', () => {
+      preloader.remove();
+    });
+  }
 
-				}
-			})
-			.children('.inner')
-				//.css('overflow', 'hidden')
-				.css('overflow-y', browser.mobile ? 'visible' : 'hidden')
-				.css('overflow-x', browser.mobile ? 'scroll' : 'hidden')
-				.scrollLeft(0);
+  /**
+   * Scroll top button
+   */
+  let scrollTop = document.querySelector('.scroll-top');
 
-		// Style #1.
-			// ...
+  function toggleScrollTop() {
+    if (scrollTop) {
+      window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
+    }
+  }
+  scrollTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
 
-		// Style #2.
-			$('.gallery')
-				.on('wheel', '.inner', function(event) {
+  window.addEventListener('load', toggleScrollTop);
+  document.addEventListener('scroll', toggleScrollTop);
 
-					var	$this = $(this),
-						delta = (event.originalEvent.deltaX * 10);
+  /**
+   * Animation on scroll function and init
+   */
+  function aosInit() {
+    AOS.init({
+      duration: 600,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
+  }
+  window.addEventListener('load', aosInit);
 
-					// Cap delta.
-						if (delta > 0)
-							delta = Math.min(25, delta);
-						else if (delta < 0)
-							delta = Math.max(-25, delta);
+  /**
+   * Init typed.js
+   */
+  const selectTyped = document.querySelector('.typed');
+  if (selectTyped) {
+    let typed_strings = selectTyped.getAttribute('data-typed-items');
+    typed_strings = typed_strings.split(',');
+    new Typed('.typed', {
+      strings: typed_strings,
+      loop: true,
+      typeSpeed: 100,
+      backSpeed: 50,
+      backDelay: 2000
+    });
+  }
 
-					// Scroll.
-						$this.scrollLeft( $this.scrollLeft() + delta );
+  /**
+   * Initiate Pure Counter
+   */
+  new PureCounter();
 
-				})
-				.on('mouseenter', '.forward, .backward', function(event) {
+  /**
+   * Animate the skills items on reveal
+   */
+  let skillsAnimation = document.querySelectorAll('.skills-animation');
+  skillsAnimation.forEach((item) => {
+    new Waypoint({
+      element: item,
+      offset: '80%',
+      handler: function(direction) {
+        let progress = item.querySelectorAll('.progress .progress-bar');
+        progress.forEach(el => {
+          el.style.width = el.getAttribute('aria-valuenow') + '%';
+        });
+      }
+    });
+  });
 
-					var $this = $(this),
-						$inner = $this.siblings('.inner'),
-						direction = ($this.hasClass('forward') ? 1 : -1);
+  /**
+   * Initiate glightbox
+   */
+  const glightbox = GLightbox({
+    selector: '.glightbox'
+  });
 
-					// Clear move interval.
-						clearInterval(this._gallery_moveIntervalId);
+  /**
+   * Init isotope layout and filters
+   */
+  document.querySelectorAll('.isotope-layout').forEach(function(isotopeItem) {
+    let layout = isotopeItem.getAttribute('data-layout') ?? 'masonry';
+    let filter = isotopeItem.getAttribute('data-default-filter') ?? '*';
+    let sort = isotopeItem.getAttribute('data-sort') ?? 'original-order';
 
-					// Start interval.
-						this._gallery_moveIntervalId = setInterval(function() {
-							$inner.scrollLeft( $inner.scrollLeft() + (5 * direction) );
-						}, 10);
+    let initIsotope;
+    imagesLoaded(isotopeItem.querySelector('.isotope-container'), function() {
+      initIsotope = new Isotope(isotopeItem.querySelector('.isotope-container'), {
+        itemSelector: '.isotope-item',
+        layoutMode: layout,
+        filter: filter,
+        sortBy: sort
+      });
+    });
 
-				})
-				.on('mouseleave', '.forward, .backward', function(event) {
+    isotopeItem.querySelectorAll('.isotope-filters li').forEach(function(filters) {
+      filters.addEventListener('click', function() {
+        isotopeItem.querySelector('.isotope-filters .filter-active').classList.remove('filter-active');
+        this.classList.add('filter-active');
+        initIsotope.arrange({
+          filter: this.getAttribute('data-filter')
+        });
+        if (typeof aosInit === 'function') {
+          aosInit();
+        }
+      }, false);
+    });
 
-					// Clear move interval.
-						clearInterval(this._gallery_moveIntervalId);
+  });
 
-				});
+  /**
+   * Init swiper sliders
+   */
+  function initSwiper() {
+    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+      let config = JSON.parse(
+        swiperElement.querySelector(".swiper-config").innerHTML.trim()
+      );
 
-	// Nav.
-		var $nav = $('#nav');
+      if (swiperElement.classList.contains("swiper-tab")) {
+        initSwiperWithCustomPagination(swiperElement, config);
+      } else {
+        new Swiper(swiperElement, config);
+      }
+    });
+  }
 
-		if ($nav.length > 0) {
+  window.addEventListener("load", initSwiper);
 
-			// Shrink effect.
-				$main
-					.scrollex({
-						mode: 'top',
-						enter: function() {
-							$nav.addClass('alt');
-						},
-						leave: function() {
-							$nav.removeClass('alt');
-						},
-					});
+  /**
+   * Correct scrolling position upon page load for URLs containing hash links.
+   */
+  window.addEventListener('load', function(e) {
+    if (window.location.hash) {
+      if (document.querySelector(window.location.hash)) {
+        setTimeout(() => {
+          let section = document.querySelector(window.location.hash);
+          let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
+          window.scrollTo({
+            top: section.offsetTop - parseInt(scrollMarginTop),
+            behavior: 'smooth'
+          });
+        }, 100);
+      }
+    }
+  });
 
-			// Links.
-				var $nav_a = $nav.find('a');
+  /**
+   * Navmenu Scrollspy
+   */
+  let navmenulinks = document.querySelectorAll('.navmenu a');
 
-				$nav_a
-					.scrolly({
-						speed: 1000,
-						offset: function() { return $nav.height(); }
-					})
-					.on('click', function() {
+  function navmenuScrollspy() {
+    navmenulinks.forEach(navmenulink => {
+      if (!navmenulink.hash) return;
+      let section = document.querySelector(navmenulink.hash);
+      if (!section) return;
+      let position = window.scrollY + 200;
+      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+        document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
+        navmenulink.classList.add('active');
+      } else {
+        navmenulink.classList.remove('active');
+      }
+    })
+  }
+  window.addEventListener('load', navmenuScrollspy);
+  document.addEventListener('scroll', navmenuScrollspy);
 
-						var $this = $(this);
+  /**
+   * Brands carousel auto-scroll & controls
+   */
+  const brandsCarousel = document.querySelector('.brands-carousel');
+  if (brandsCarousel) {
+    const viewport = brandsCarousel.querySelector('.brands-viewport');
+    const track = brandsCarousel.querySelector('.brands-track');
+    const prevBtn = brandsCarousel.querySelector('.brands-nav-prev');
+    const nextBtn = brandsCarousel.querySelector('.brands-nav-next');
 
-						// External link? Bail.
-							if ($this.attr('href').charAt(0) != '#')
-								return;
+    if (viewport && track && prevBtn && nextBtn) {
+      let offset = 0;
+      let lastTime = null;
+      let isPaused = false;
+      let resumeTimer;
+      let segmentWidth = 0;
+      let speed = 40;
+      let skipActive = false;
+      let skipStart = null;
+      let skipFrom = 0;
+      let skipTo = 0;
+      const SKIP_DURATION = 500;
 
-						// Deactivate all links.
-							$nav_a
-								.removeClass('active')
-								.removeClass('active-locked');
+      const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let autoEnabled = !reducedMotionQuery.matches;
 
-						// Activate link *and* lock it (so Scrollex doesn't try to activate other links as we're scrolling to this one's section).
-							$this
-								.addClass('active')
-								.addClass('active-locked');
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
 
-					})
-					.each(function() {
+      function computeMetrics() {
+        segmentWidth = track.scrollWidth / 2;
+        const duration = window.matchMedia('(max-width: 767px)').matches ? 20 : 22;
+        if (segmentWidth > 0 && autoEnabled) {
+          speed = segmentWidth / duration;
+        }
+      }
 
-						var	$this = $(this),
-							id = $this.attr('href'),
-							$section = $(id);
+      function normalizeOffset() {
+        if (segmentWidth <= 0) return;
+        while (offset <= -segmentWidth) {
+          offset += segmentWidth;
+        }
+        while (offset > 0) {
+          offset -= segmentWidth;
+        }
+      }
 
-						// No section for this link? Bail.
-							if ($section.length < 1)
-								return;
+      function normalizeTarget(value, current) {
+        if (segmentWidth <= 0) return value;
+        while (value <= -segmentWidth) {
+          value += segmentWidth;
+        }
+        while (value > 0) {
+          value -= segmentWidth;
+        }
+        const delta = value - current;
+        if (delta > segmentWidth / 2) {
+          value -= segmentWidth;
+        } else if (delta < -segmentWidth / 2) {
+          value += segmentWidth;
+        }
+        return value;
+      }
 
-						// Scrollex.
-							$section.scrollex({
-								mode: 'middle',
-								initialize: function() {
+      function applyTransform() {
+        track.style.transform = `translateX(${offset}px)`;
+      }
 
-									// Deactivate section.
-										if (browser.canUse('transition'))
-											$section.addClass('inactive');
+      function autoStep(timestamp) {
+        if (!lastTime) {
+          lastTime = timestamp;
+        }
 
-								},
-								enter: function() {
+        const delta = timestamp - lastTime;
+        if (skipActive) {
+          if (!skipStart) {
+            skipStart = timestamp;
+          }
+          const elapsed = timestamp - skipStart;
+          const progress = Math.min(elapsed / SKIP_DURATION, 1);
+          const eased = easeOutCubic(progress);
+          offset = skipFrom + (skipTo - skipFrom) * eased;
+          normalizeOffset();
+          applyTransform();
+          if (progress >= 1) {
+            skipActive = false;
+            offset = skipTo;
+            normalizeOffset();
+            applyTransform();
+          }
+        } else if (autoEnabled && !isPaused && segmentWidth > 0) {
+          offset -= (speed * delta) / 1000;
+          normalizeOffset();
+          applyTransform();
+        }
 
-									// Activate section.
-										$section.removeClass('inactive');
+        lastTime = timestamp;
+        requestAnimationFrame(autoStep);
+      }
 
-									// No locked links? Deactivate all links and activate this section's one.
-										if ($nav_a.filter('.active-locked').length == 0) {
+      function pauseAndResume() {
+        isPaused = true;
+        lastTime = performance.now();
+        clearTimeout(resumeTimer);
+        resumeTimer = setTimeout(() => {
+          isPaused = false;
+          lastTime = performance.now();
+        }, 800);
+      }
 
-											$nav_a.removeClass('active');
-											$this.addClass('active');
+      function skip(distance) {
+        computeMetrics();
+        if (segmentWidth <= 0) return;
 
-										}
+        if (skipActive) {
+          offset = skipTo;
+          normalizeOffset();
+          skipActive = false;
+        }
 
-									// Otherwise, if this section's link is the one that's locked, unlock it.
-										else if ($this.hasClass('active-locked'))
-											$this.removeClass('active-locked');
+        skipFrom = offset;
+        skipTo = normalizeTarget(offset + distance, offset);
+        skipStart = null;
+        skipActive = true;
+        applyTransform();
 
-								}
-							});
+        if (autoEnabled) {
+          pauseAndResume();
+        } else {
+          lastTime = performance.now();
+        }
+      }
 
-					});
+      prevBtn.addEventListener('click', () => {
+        const distance = viewport.clientWidth * 0.6;
+        skip(distance);
+      });
 
-		}
+      nextBtn.addEventListener('click', () => {
+        const distance = viewport.clientWidth * 0.6;
+        skip(-distance);
+      });
 
-	// Scrolly.
-		$('.scrolly').scrolly({
-			speed: 1000
-		});
+      window.addEventListener('resize', () => {
+        const previousSegment = segmentWidth;
+        computeMetrics();
+        if (segmentWidth > 0 && previousSegment > 0) {
+          const proportion = offset / previousSegment;
+          offset = proportion * segmentWidth;
+          normalizeOffset();
+          applyTransform();
+        }
+      });
 
-})(jQuery);
+      function initCarousel() {
+        computeMetrics();
+        normalizeOffset();
+        applyTransform();
+        if (!autoEnabled) {
+          isPaused = true;
+        }
+      }
+
+      if (document.readyState === 'complete') {
+        initCarousel();
+      } else {
+        window.addEventListener('load', initCarousel);
+      }
+
+      const reducedMotionListener = (event) => {
+        autoEnabled = !event.matches;
+        if (!autoEnabled) {
+          isPaused = true;
+        } else {
+          computeMetrics();
+          lastTime = performance.now();
+          isPaused = false;
+        }
+      };
+
+      if (reducedMotionQuery.addEventListener) {
+        reducedMotionQuery.addEventListener('change', reducedMotionListener);
+      } else if (reducedMotionQuery.addListener) {
+        reducedMotionQuery.addListener(reducedMotionListener);
+      }
+
+      requestAnimationFrame(autoStep);
+    }
+  }
+
+})();
