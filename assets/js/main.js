@@ -168,6 +168,37 @@
   });
 
   /**
+   * Replace video placeholder thumbnails with first frame
+   */
+  const videoThumbs = document.querySelectorAll('img.video-thumb[data-video-src]');
+  videoThumbs.forEach((img) => {
+    const videoSrc = img.getAttribute('data-video-src');
+    if (!videoSrc) return;
+
+    const video = document.createElement('video');
+    video.src = videoSrc;
+    video.preload = 'auto';
+    video.muted = true;
+    video.playsInline = true;
+
+    const captureFrame = () => {
+      if (!video.videoWidth || !video.videoHeight) return;
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      img.src = canvas.toDataURL('image/png');
+      video.src = '';
+    };
+
+    video.addEventListener('loadeddata', captureFrame, { once: true });
+    video.addEventListener('error', () => {
+      video.src = '';
+    }, { once: true });
+  });
+
+  /**
    * Init swiper sliders
    */
   function initSwiper() {

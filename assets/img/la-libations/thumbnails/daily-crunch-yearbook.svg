@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+  <title id="title">Daily Crunch Campaign Yearbook</title>
+  <desc id="desc">Placeholder cover art for the Daily Crunch campaign yearbook deck</desc>
+  <defs>
+    <linearGradient id="dc-yearbook-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b132b"/>
+      <stop offset="50%" stop-color="#1b305c"/>
+      <stop offset="100%" stop-color="#0b132b"/>
+    </linearGradient>
+    <linearGradient id="dc-yearbook-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6fb7"/>
+      <stop offset="50%" stop-color="#5ae0ff"/>
+      <stop offset="100%" stop-color="#6ef3c5"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#dc-yearbook-bg)"/>
+  <rect x="80" y="90" width="640" height="420" rx="22" fill="rgba(255,255,255,0.05)" stroke="url(#dc-yearbook-accent)" stroke-width="2"/>
+  <rect x="80" y="90" width="640" height="420" rx="22" fill="url(#dc-yearbook-accent)" opacity="0.12"/>
+  <text x="400" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-size="44" font-weight="700" fill="#f7f9ff">Campaign Yearbook</text>
+  <text x="400" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="#e9f2ff">Recaps · Calendar · Assets</text>
+</svg>

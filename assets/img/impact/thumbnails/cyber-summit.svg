@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">Cyber Summit Event Montage</title>
+  <desc id="desc">Thumbnail for Impact Networking Cyber Summit event montage video</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b132b"/>
+      <stop offset="50%" stop-color="#15254a"/>
+      <stop offset="100%" stop-color="#0b132b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6fb7"/>
+      <stop offset="50%" stop-color="#5ae0ff"/>
+      <stop offset="100%" stop-color="#6ef3c5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <rect x="60" y="120" width="1160" height="480" rx="30" fill="rgba(255,255,255,0.04)" stroke="url(#accent)" stroke-width="2"/>
+  <rect x="60" y="120" width="1160" height="480" rx="30" fill="url(#accent)" opacity="0.12"/>
+  <text x="640" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#f7f9ff">Cyber Summit</text>
+  <text x="640" y="400" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="600" fill="#e9f2ff">Event Montage</text>
+  <text x="640" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="500" fill="#c7d7ff">Highlights · Speakers · Atmosphere</text>
+</svg>

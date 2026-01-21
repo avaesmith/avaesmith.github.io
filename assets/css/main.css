@@ -10,31 +10,36 @@
 # Font & Color Variables
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
 /* Fonts */
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Ubuntu",  sans-serif;
-  --nav-font: "Nunito",  sans-serif;
+  --default-font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Space Grotesk", sans-serif;
+  --nav-font: "Plus Jakarta Sans", sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
-:root { 
-  --background-color: #1f1f1f; /* Background color for the entire website, including individual sections */
-  --default-color: #ffffff; /* Default color used for the majority of the text content across the entire website */
-  --heading-color: #ffffff; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #ececec; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
-  --surface-color: #232323; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
-  --contrast-color: #310606; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
+:root {
+  --background-color: #080f24; /* Deep navy base */
+  --default-color: #e9f2ff; /* Muted icy white for body text */
+  --heading-color: #f7f9ff; /* Crisp white for headings */
+  --accent-color: #ff6fb7; /* Punchy pink accent */
+  --surface-color: #101a32; /* Card surfaces */
+  --contrast-color: #040814; /* Text on accent backgrounds */
+  --accent-blue: #5ae0ff;
+  --accent-green: #6ef3c5;
+  --accent-gradient: linear-gradient(120deg, #ff6fb7, #5ae0ff 50%, #6ef3c5);
 }
 
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
-  --nav-color: rgba(236, 236, 236, 0.59);  /* The default color of the main navmenu links */
+  --nav-color: rgba(233, 242, 255, 0.7);  /* The default color of the main navmenu links */
   --nav-hover-color: #ffffff; /* Applied to main navmenu links when they are hovered over or active */
-  --nav-mobile-background-color: #393939; /* Used as the background color for mobile navigation menu */
-  --nav-dropdown-background-color: #393939; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+  --nav-mobile-background-color: #0f1a33; /* Used as the background color for mobile navigation menu */
+  --nav-dropdown-background-color: #0f1a33; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #ffffff; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #ececec; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-dropdown-hover-color: #ff6fb7; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -63,6 +68,11 @@
 body {
   color: var(--default-color);
   background-color: var(--background-color);
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255, 111, 183, 0.18), transparent 28%),
+    radial-gradient(circle at 80% 0%, rgba(90, 224, 255, 0.16), transparent 25%),
+    radial-gradient(circle at 70% 75%, rgba(110, 243, 197, 0.14), transparent 24%);
+  background-attachment: fixed;
   font-family: var(--default-font);
 }
 
@@ -520,7 +530,7 @@ section,
   content: "";
   width: 50px;
   height: 2px;
-  background: var(--accent-color);
+  background: var(--accent-gradient);
   display: inline-block;
 }
 
@@ -565,8 +575,10 @@ section,
 .hero .background-elements .bg-circle {
   position: absolute;
   border-radius: 50%;
-  background: linear-gradient(45deg, color-mix(in srgb, var(--accent-color), transparent 90%), color-mix(in srgb, var(--accent-color), transparent 95%));
+  background: radial-gradient(circle at 30% 30%, rgba(255, 111, 183, 0.5), rgba(255, 111, 183, 0)),
+              radial-gradient(circle at 70% 70%, rgba(90, 224, 255, 0.45), rgba(90, 224, 255, 0));
   animation: float 6s ease-in-out infinite;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
 }
 
 .hero .background-elements .bg-circle.circle-1 {
@@ -607,6 +619,9 @@ section,
 .hero .hero-text h1 .accent-text {
   color: var(--accent-color);
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding-right: 28px;
 }
 
 .hero .hero-text h1 .accent-text::after {
@@ -615,8 +630,10 @@ section,
   bottom: -5px;
   left: 0;
   width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--accent-color), color-mix(in srgb, var(--accent-color), transparent 50%));
+  height: 4px;
+  background: var(--accent-gradient);
+  filter: drop-shadow(0 4px 12px rgba(255, 111, 183, 0.35));
+  animation: pulseUnderline 3s ease-in-out infinite;
 }
 
 .hero .hero-text h2 {
@@ -665,13 +682,13 @@ section,
 }
 
 .hero .hero-actions .btn.btn-primary {
-  background-color: var(--accent-color);
+  background-image: var(--accent-gradient);
   color: var(--contrast-color);
-  border-color: var(--accent-color);
+  border-color: transparent;
 }
 
 .hero .hero-actions .btn.btn-primary:hover {
-  background-color: color-mix(in srgb, var(--accent-color), black 10%);
+  background-image: linear-gradient(120deg, color-mix(in srgb, #ff6fb7, black 8%), color-mix(in srgb, #5ae0ff, black 8%) 50%, color-mix(in srgb, #6ef3c5, black 8%));
   transform: translateY(-2px);
   box-shadow: 0 8px 25px color-mix(in srgb, var(--accent-color), transparent 70%);
 }
@@ -732,7 +749,9 @@ section,
   left: 15px;
   width: 100%;
   height: 100%;
-  background: color-mix(in srgb, var(--accent-color), transparent 90%);
+  background: radial-gradient(circle at 25% 25%, rgba(255, 111, 183, 0.3), rgba(255, 111, 183, 0)),
+    radial-gradient(circle at 70% 70%, rgba(90, 224, 255, 0.3), rgba(90, 224, 255, 0)),
+    color-mix(in srgb, var(--surface-color), transparent 10%);
   border-radius: 30px;
   z-index: 1;
 }
@@ -769,6 +788,18 @@ section,
     transform: translateY(-10px) rotate(5deg);
   }
 }
+
+@keyframes pulseUnderline {
+  0%, 100% {
+    transform: scaleX(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scaleX(1.05);
+    opacity: 1;
+  }
+}
+
 
 @media (max-width: 992px) {
   .hero .hero-text {
@@ -1234,10 +1265,14 @@ section,
 # Skills Section
 --------------------------------------------------------------*/
 .skills .skills-category {
-  background-color: var(--surface-color);
-  padding: 30px;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 14%) 0%,
+    color-mix(in srgb, var(--surface-color), var(--accent-blue) 12%) 48%,
+    color-mix(in srgb, var(--surface-color), var(--accent-green) 10%) 100%);
+  padding: 22px;
   border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 65%);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
   height: 100%;
   transition: transform 0.3s;
 }
@@ -1248,7 +1283,7 @@ section,
 
 .skills .skills-category h3 {
   font-size: 24px;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
   position: relative;
   padding-bottom: 15px;
 }
@@ -1261,6 +1296,32 @@ section,
   width: 50px;
   height: 2px;
   background-color: var(--accent-color);
+}
+
+.skills .skill-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.skills .skill-pill {
+  background-image: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 30%), color-mix(in srgb, var(--accent-blue), transparent 35%) 80%);
+  border: 1px solid color-mix(in srgb, var(--accent-blue), transparent 55%);
+  color: var(--heading-color);
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.3s ease;
+}
+
+.skills .skill-pill:hover {
+  background-image: linear-gradient(135deg, color-mix(in srgb, var(--accent-color), transparent 10%), color-mix(in srgb, var(--accent-green), transparent 25%) 80%);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
 }
 
 .skills .skill-item {
@@ -1521,8 +1582,8 @@ section,
 # Portfolio Section
 --------------------------------------------------------------*/
 .portfolio.section {
-  border-radius: 36px;
-  margin-inline: clamp(16px, 6vw, 96px);
+  border-radius: 0;
+  margin-inline: 0;
 }
 
 @media (max-width: 991px) {
@@ -1532,10 +1593,13 @@ section,
 }
 
 .portfolio .filters-wrapper {
-  background-color: color-mix(in srgb, var(--surface-color), var(--default-color) 3%);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 10%) 0%,
+    color-mix(in srgb, var(--surface-color), var(--accent-blue) 10%) 100%);
   padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 75%);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
 @media (max-width: 991px) {
@@ -1600,39 +1664,44 @@ section,
   transition: 0.4s;
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 10px !important;
+  border: 1px solid color-mix(in srgb, var(--accent-blue), transparent 70%);
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 10%) 0%,
+    color-mix(in srgb, var(--surface-color), var(--accent-blue) 10%) 100%);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 18px 16px;
 }
 
 .portfolio .portfolio-wrap img {
-  transition: transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
-  width: 100%;
-  height: 350px;
-  object-fit: cover;
+  display: none;
 }
 
 .portfolio .portfolio-wrap .portfolio-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 25px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0) 100%);
-  z-index: 3;
-  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-  transform: translateY(20px);
-  opacity: 0;
+  position: static;
+  padding: 0;
+  background: transparent;
+  z-index: 1;
+  transition: none;
+  transform: none;
+  opacity: 1;
 }
 
 .portfolio .portfolio-wrap .portfolio-info .content {
-  transition: all 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-  transform: translateY(20px);
+  transition: none;
+  transform: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .portfolio .portfolio-wrap .portfolio-info .category {
   display: inline-block;
-  color: var(--accent-color);
+  color: var(--heading-color);
   font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
@@ -1642,7 +1711,7 @@ section,
 
 .portfolio .portfolio-wrap .portfolio-info h4 {
   font-size: 20px;
-  color: var(--contrast-color);
+  color: var(--heading-color);
   font-weight: 700;
   margin-bottom: 15px;
 }
@@ -1653,7 +1722,7 @@ section,
 }
 
 .portfolio .portfolio-wrap .portfolio-info .portfolio-links a {
-  color: var(--contrast-color);
+  color: var(--heading-color);
   width: 40px;
   height: 40px;
   display: flex;
@@ -1671,20 +1740,8 @@ section,
 }
 
 .portfolio .portfolio-wrap:hover {
-  transform: translateY(-5px);
-}
-
-.portfolio .portfolio-wrap:hover img {
-  transform: scale(1.08);
-}
-
-.portfolio .portfolio-wrap:hover .portfolio-info {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.portfolio .portfolio-wrap:hover .portfolio-info .content {
-  transform: translateY(0);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.14);
 }
 
 /*--------------------------------------------------------------
@@ -2650,6 +2707,60 @@ section,
   line-height: 1.5;
 }
 
+.portfolio-details .case-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  padding: 1.5rem;
+  margin-top: -0.5rem;
+  background: linear-gradient(135deg,
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 10%) 0%,
+    color-mix(in srgb, var(--surface-color), var(--accent-blue) 10%) 100%);
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.portfolio-details .case-metrics .metric-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 75%);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  overflow: hidden;
+}
+
+.portfolio-details .case-metrics .metric-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--accent-gradient);
+}
+
+.portfolio-details .case-metrics .metric-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--default-color), transparent 25%);
+  margin-bottom: 0.35rem;
+}
+
+.portfolio-details .case-metrics .metric-value {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--heading-color);
+  margin-bottom: 0.3rem;
+}
+
+.portfolio-details .case-metrics .metric-note {
+  font-size: 0.9rem;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  margin: 0;
+}
+
 .portfolio-details .case-content {
   display: flex;
   flex-direction: column;
@@ -2662,20 +2773,54 @@ section,
   gap: 1.5rem;
 }
 
+.portfolio-details .photo-collage {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.portfolio-details .photo-collage .collage-item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.portfolio-details .photo-collage .collage-item img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.portfolio-details .photo-collage .collage-item:hover,
+.portfolio-details .photo-collage .collage-item:focus {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 65%);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+
 .portfolio-details .content-heading h3 {
   font-size: 1.35rem;
   margin-bottom: 0.15rem;
+  padding-left: 10px;
 }
 
 .portfolio-details .content-heading p {
   margin: 0;
   max-width: 540px;
   color: color-mix(in srgb, var(--default-color), transparent 20%);
+  padding-left: 10px;
 }
 
 .portfolio-details .content-items {
   display: grid;
   gap: 1.25rem;
+  padding-left: 15px;
+  padding-right: 15px;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
@@ -2697,8 +2842,8 @@ section,
 .portfolio-details .portfolio-card:hover,
 .portfolio-details .portfolio-card:focus {
   transform: translateY(-4px);
-  border-color: rgba(214, 64, 69, 0.45);
-  box-shadow: 0 12px 28px rgba(214, 64, 69, 0.18);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 35%);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--accent-color), transparent 75%);
 }
 
 .portfolio-details .portfolio-card h4 {
@@ -2718,22 +2863,23 @@ section,
   justify-content: center;
   padding: 0.25rem 0.75rem;
   border-radius: 999px;
-  background: rgba(214, 64, 69, 0.18);
-  color: #f4b4b6;
+  background: color-mix(in srgb, var(--accent-color), transparent 80%);
+  color: var(--heading-color);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
 }
 
 .portfolio-details .card-download {
-  background: #d64045;
+  background: var(--accent-color);
   border-color: transparent;
+  color: var(--contrast-color);
 }
 
 .portfolio-details .card-download:hover,
 .portfolio-details .card-download:focus {
-  background: #f04d52;
-  box-shadow: 0 12px 28px rgba(214, 64, 69, 0.25);
+  background: color-mix(in srgb, var(--accent-color), black 12%);
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--accent-color), transparent 65%);
 }
 
 .portfolio-details .card-note {
@@ -2789,13 +2935,14 @@ section,
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  padding: 0.75rem;
 }
 
 .portfolio-details .grid-comparison-item:hover,
 .portfolio-details .grid-comparison-item:focus {
   transform: translateY(-4px);
-  border-color: rgba(214, 64, 69, 0.6);
-  box-shadow: 0 12px 30px rgba(214, 64, 69, 0.18);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 35%);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--accent-color), transparent 75%);
 }
 
 .portfolio-details .grid-comparison-item img {
@@ -2804,16 +2951,18 @@ section,
   object-fit: contain;
   background: rgba(0, 0, 0, 0.4);
   padding: 0.75rem;
+  border-radius: 12px;
 }
 
 .portfolio-details .grid-comparison-label {
-  position: absolute;
-  top: 0.8rem;
-  left: 0.8rem;
+  position: static;
+  display: inline-flex;
+  align-items: center;
   padding: 0.35rem 0.85rem;
+  margin-bottom: 0.65rem;
   border-radius: 999px;
-  background: rgba(214, 64, 69, 0.85);
-  color: #ffffff;
+  background: var(--accent-gradient);
+  color: var(--contrast-color);
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
